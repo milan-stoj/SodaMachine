@@ -9,7 +9,13 @@ namespace SodaMachina
     class Customer
     {
         Wallet wallet;
-        Backpack backPack;
+        Backpack backpack;
+
+        public Customer()
+        {
+            wallet = new Wallet();
+            backpack = new Backpack();
+        }
 
     }
 }

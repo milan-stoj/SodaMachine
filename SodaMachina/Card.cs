@@ -8,15 +8,15 @@ namespace SodaMachina
 {
     class Card
     {
-        private double availableFunds;
-        public double AvailableFunds
+        protected double availableFunds;
+        public double AvailableFunds { get => availableFunds; }
+
+        public Card()
         {
-            get
-            {
-                return availableFunds;
-            }
+            availableFunds = 100;
         }
 
+        
 
     }
 }

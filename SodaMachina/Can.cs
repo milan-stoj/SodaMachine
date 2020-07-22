@@ -13,7 +13,7 @@ namespace SodaMachina
         
         protected double cost;
         public double Cost { get => cost; }
-
-
     }
+
+
 }

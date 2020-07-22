@@ -10,5 +10,11 @@ namespace SodaMachina
     {
         Customer customer;
         SodaMachine sodaMachine;
+
+        public Simulation()
+        {
+            customer = new Customer();
+            sodaMachine = new SodaMachine();
+        }
     }
 }
