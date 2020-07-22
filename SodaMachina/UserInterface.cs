@@ -126,6 +126,11 @@ namespace SodaMachina
             Console.ReadKey();
         }
 
+        public static void PurchaseSoda(Card card) // method for displaying contents of backpack.
+        {
+            
+        }
+
 
 
 
