@@ -8,5 +8,6 @@ namespace SodaMachina
 {
     class Backpack
     {
+        List<Can> cans;
     }
 }

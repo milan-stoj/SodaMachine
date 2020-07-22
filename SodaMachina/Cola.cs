@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SodaMachina
 {
-    class Cola
+    class Cola : Can
     {
     }
 }

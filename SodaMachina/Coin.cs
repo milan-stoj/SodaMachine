@@ -8,5 +8,6 @@ namespace SodaMachina
 {
     abstract class Coin
     {
+        public double value;
     }
 }
