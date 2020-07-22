@@ -10,7 +10,10 @@ namespace SodaMachina
     {
         static void Main(string[] args)
         {
+            Console.SetWindowSize(60, 50);
             Simulation sim = new Simulation();
+            sim.Run();
+
         }
     }
 }

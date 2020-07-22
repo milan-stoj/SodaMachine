@@ -8,8 +8,8 @@ namespace SodaMachina
 {
     class Customer
     {
-        Wallet wallet;
-        Backpack backpack;
+        public Wallet wallet;
+        public Backpack backpack;
 
         public Customer()
         {
