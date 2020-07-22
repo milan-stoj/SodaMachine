@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace SodaMachina
 {
-    class Program
+    class RedBull
     {
-        static void Main(string[] args)
-        {
-
-        }
     }
 }

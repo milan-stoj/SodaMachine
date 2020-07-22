@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace SodaMachina
 {
-    class Program
+    class Can
     {
-        static void Main(string[] args)
-        {
-
-        }
     }
 }
