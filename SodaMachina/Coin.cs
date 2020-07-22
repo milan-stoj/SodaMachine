@@ -8,6 +8,11 @@ namespace SodaMachina
 {
     abstract class Coin
     {
-        public double value;
+        protected string name;
+        protected double value;
+
+        public double Value { get => value; }
+        public string Name { get => name; }
+
     }
 }

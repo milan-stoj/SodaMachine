@@ -8,10 +8,9 @@ namespace SodaMachina
 {
     class Dime : Coin
     {
-        public double value;
-
         public Dime()
         {
+            name = "Dime";
             value = 0.10;
         }
     }

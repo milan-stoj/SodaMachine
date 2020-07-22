@@ -8,7 +8,12 @@ namespace SodaMachina
 {
     class Can
     {
-        string name;
-        double cost;
+        protected string name;
+        public string Name { get => name; }
+        
+        protected double cost;
+        public double Cost { get => cost; }
+
+
     }
 }

@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace SodaMachina
 {
-    class RedBull
+    class RadBull : Can
     {
+        public RadBull()
+        {
+            name = "RadBull";
+            cost = 1.00;
+        }
     }
 }
