@@ -16,16 +16,16 @@ namespace SodaMachina
         {
             inventory = new List<Can>();
 
-            for (int i = 0; i < 1; i++) { inventory.Add(new Cola()); }
-            for (int i = 0; i < 1; i++) { inventory.Add(new OrangeSoda()); }
-            for (int i = 0; i < 1; i++) { inventory.Add(new RadBull()); }
-            for (int i = 0; i < 1; i++) { inventory.Add(new RootBeer()); }
+            for (int i = 0; i < 10; i++) { inventory.Add(new Cola()); }
+            for (int i = 0; i < 10; i++) { inventory.Add(new OrangeSoda()); }
+            for (int i = 0; i < 10; i++) { inventory.Add(new RadBull()); }
+            for (int i = 0; i < 10; i++) { inventory.Add(new RootBeer()); }
 
             register = new List<Coin>();
-            for (int i = 0; i < 1; i++) { register.Add(new Quarter()); }
-            for (int i = 0; i < 1; i++) { register.Add(new Dime()); }
-            for (int i = 0; i < 1; i++) { register.Add(new Nickel()); }
-            for (int i = 0; i < 1; i++) { register.Add(new Penny()); }
+            for (int i = 0; i < 25; i++) { register.Add(new Quarter()); }
+            for (int i = 0; i < 30; i++) { register.Add(new Dime()); }
+            for (int i = 0; i < 35; i++) { register.Add(new Nickel()); }
+            for (int i = 0; i < 50; i++) { register.Add(new Penny()); }
         }
 
         public double RegisterTotal()
