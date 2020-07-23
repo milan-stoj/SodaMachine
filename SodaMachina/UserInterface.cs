@@ -14,10 +14,11 @@ namespace SodaMachina
         {
             Console.WriteLine(@"
     Input 'i'   : Get info about products.
-    Input 'm'   : Insert cash/coin into the machine.
-    Input 'c'   : Insert credit card into the machine.
-    Input 'b'   : View contents of backpack (coming soon).
-    Input 'w'   : View contents of wallet (combing soon).
+    Input 'd'   : Get info on machine change.
+    Input 'p'   : Purchase a soda.
+    Input 'b'   : View contents of backpack.
+    Input 'w'   : View contents of wallet.
+    
 ");
         }
 
@@ -35,10 +36,10 @@ namespace SodaMachina
 
         public static char GetChoice()
         {
-            return ValidatedChoice(Console.ReadKey(true).KeyChar);
+            return ValidatedMenuChoice(Console.ReadKey(true).KeyChar);
         }
 
-        private static char ValidatedChoice(char choice)
+        private static char ValidatedMenuChoice(char choice)
         {
             switch (choice)
             {
@@ -46,18 +47,18 @@ namespace SodaMachina
                     return choice;
                 case 'c':
                     return choice;
-                case 'm':
-                    return choice;
-                case 'x':
-                    return choice;
                 case 'b':
                     return choice;
                 case 'w':
                     return choice;
-                
+                case 'p':
+                    return choice;
+                case 'd':
+                    return choice;
                 default:
                     Console.Clear();
                     MainMenu();
+                    Choices();
                     Console.WriteLine("\tNot a valid choice!");
                     return GetChoice();
             }
@@ -138,26 +139,241 @@ namespace SodaMachina
             {
                 Console.WriteLine("\tWallet is Empty");
             }
+            Console.WriteLine($"\t1 × Credit Card: ${wallet.card.AvailableFunds}");
             Console.WriteLine("\tPress any key to return.");
             Console.ReadKey();
         }
 
-        public static void PurchaseSoda(Card card)
+        public static void DisplayInfo(SodaMachine sodaMachine) // method for displaying contents of machine register.
         {
-            
+            if (sodaMachine.register.Count > 0)
+            {
+                List<Coin> distinctCoins = sodaMachine.register.GroupBy(n => n.Name).Select(g => g.First()).ToList();
+                foreach (Coin coin in distinctCoins)
+                {
+                    double subCoinTotal = 0;
+                    string target = coin.Name;
+                    List<Coin> sublist = sodaMachine.register.FindAll(x => x.Name.Equals(target)); // Using predicate to extract list of items matching "Name" of distinct wallet coins.
+                    int count = sublist.Count();
+                    foreach (Coin subcoin in sublist) // Iterating through each coin type in wallet to get total value of each type.
+                    {
+                        subCoinTotal += subcoin.Value;
+                    }
+                    Console.WriteLine($"\t{count} × {target}: ${subCoinTotal}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("\tRegister is Empty");
+            }
+            Console.WriteLine("\tPress any key to return.");
+            Console.ReadKey();
+        }
+
+        public static void PaymentChoices()
+        {
+            Console.WriteLine(@"
+    Input '1'   : Pay with Coin/Cash
+    Input '2'   : Pay with Card
+");
+        }
+
+        public static char GetPaymentChoice()
+        {
+            return ValidatePaymentChoice(Console.ReadKey(true).KeyChar);
+        }
+        public static char ValidatePaymentChoice(char choice)
+        {
+            switch (choice)
+            {
+                case '1':
+                    return choice;
+                case '2':
+                    return choice;
+                default:
+                    Console.Clear();
+                    MainMenu();
+                    PaymentChoices();
+                    Console.WriteLine("\tNot a valid choice!");
+                    return GetPaymentChoice();
+            }
+
         }
 
 
 
+        public static List<Coin> Payment(Customer customer)
+        {
+            List<Coin> toMachine = new List<Coin>();
+            double toMachineTotal = 0;
+            while (true)
+            {
+                MainMenu();
+                Console.WriteLine($"\tTotal inserted: ${toMachineTotal}");
+                CoinChoices();
+                string coinChoice = GetCoinChoice();
+                if (customer.CheckWallet(coinChoice) == true)
+                {
+                    Coin transferedCoin = customer.TransferCoinOut(coinChoice);
+                    toMachine.Add(transferedCoin);
+                    toMachineTotal += transferedCoin.Value;
+                }
+                else if(customer.CheckWallet(coinChoice) == false && coinChoice != "Select Soda")
+                {
+                    Console.WriteLine($"Not enough {coinChoice}'s");
+                    Console.ReadKey();
+                }
+                else if(coinChoice == "Select Soda")
+                {
+                    return toMachine;
+                }
+            }
+        }
 
+        public static double Payment(Card card)
+        {
+            return card.AvailableFunds;
+        }
 
+        public static void CoinChoices()
+        {
+            Console.WriteLine(@"
+    Input '1'   : Quarter
+    Input '2'   : Dime
+    Input '3'   : Nickel
+    Input '4'   : Penny
+    Input '5'   : Select Soda
+");
+        }
 
+        public static string GetCoinChoice()
+        {
+            return ValidateCoinChoice(Console.ReadKey(true).KeyChar);
+        }
+        public static string ValidateCoinChoice(char choice)
+        {
+            switch (choice)
+            {
+                case '1':
+                    return "Quarter";
+                case '2':
+                    return "Dime";
+                case '3':
+                    return "Nickel";
+                case '4':
+                    return "Penny";
+                case '5':
+                    return "Select Soda";
+                default:
+                    Console.Clear();
+                    MainMenu();
+                    CoinChoices();
+                    Console.WriteLine("\tNot a valid choice!");
+                    return GetCoinChoice();
+            }
 
+        }
 
+        public static void CanChoices()
+        {
+            Console.WriteLine(@"
+    Input '1'   : Super Cola
+    Input '2'   : Orange Soda
+    Input '3'   : Rad Bull
+    Input '4'   : Root Beer
+");
+        }
+        
+        public static string GetCanChoice()
+        {
+            return ValidateCanChoice(Console.ReadKey(true).KeyChar);
+        }
 
+        public static string ValidateCanChoice(char choice)
+        {
+            switch (choice)
+            {
+                case '1':
+                    return "Super Cola";
+                case '2':
+                    return "Orange Soda";
+                case '3':
+                    return "Rad Bull";
+                case '4':
+                    return "Root Beer";
+                default:
+                    Console.Clear();
+                    MainMenu();
+                    CanChoices();
+                    Console.WriteLine("\tNot a valid choice!");
+                    return GetCanChoice();
+            }
+        }
 
+        public static void SelectSoda(List<Coin> transferedFunds, SodaMachine sodaMachina, Customer customer)
+        {
+            MainMenu();
+            CanChoices();
+            string canChoice = GetCanChoice();
+            double totalPassed = sodaMachina.TotalPassed(transferedFunds);
+            double canCost = sodaMachina.ReturnSodaPrice(canChoice);
+            bool canExists = sodaMachina.CheckInventory(canChoice);
 
+            if (canExists == true)
+            {
+                Console.WriteLine("\tSoda is in stock!");
+                if (canCost == totalPassed)
+                {
+                    MainMenu();
+                    Console.WriteLine("\tExact Funds adequate!");
+                    Can customerCan = sodaMachina.TransferSoda(canChoice);
+                    customer.backpack.cans.Add(customerCan);
+                }
+                else if(canCost < totalPassed)
+                {
+                    if(totalPassed - canCost > sodaMachina.RegisterTotal())
+                    {
+                        MainMenu();
+                        Console.WriteLine($"\tFunds adequate!\n\tBut not enough change to give. Returning payment.");
+                        foreach (Coin coin in transferedFunds)
+                        {
+                            customer.wallet.coins.Add(coin);
+                        }
+                    }
+                    else if(totalPassed - canCost < sodaMachina.RegisterTotal())
+                    {
+                        MainMenu();
+                        Console.WriteLine($"\tFunds adequate!\n\tDispensing soda and {totalPassed - canCost} in change");
+                        Can customerCan = sodaMachina.TransferSoda(canChoice);
+                        customer.backpack.cans.Add(customerCan);
+                        foreach(Coin coin in sodaMachina.ReturnChange(totalPassed - canCost))
+                        {
+                            customer.wallet.coins.Add(coin);
+                        }
+                    }
+                }
 
+                else if(canCost > totalPassed)
+                {
+                    MainMenu();
+                    Console.WriteLine("\tInsufficient funds\n\tReturning Payment");
+                    foreach (Coin coin in transferedFunds)
+                    {
+                        customer.wallet.coins.Add(coin);
+                    }
+                }
+                
+            }
+            else if (canExists == false)
+            {
+                MainMenu();
+                Console.WriteLine("\tInsufficient stock\n\tReturning Payment");
+                foreach (Coin coin in transferedFunds)
+                {
+                    customer.wallet.coins.Add(coin);
+                }
+            }
+        }
 
         public static void Header()
         {

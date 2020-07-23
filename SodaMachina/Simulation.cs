@@ -24,10 +24,6 @@ namespace SodaMachina
             GetAction(UserInterface.GetChoice());
         }
 
-        public void GetAction()
-        {
-
-        }
 
         public void GetAction(char choice)
         {
@@ -36,24 +32,53 @@ namespace SodaMachina
             {
                 UserInterface.DisplayInfo(sodaMachine.inventory);
             }
-            else if (choice == 'm') // Insert cash/coin
+            else if (choice == 'p') // purchase soda
             {
-                Run();
+                UserInterface.MainMenu();
+                UserInterface.PaymentChoices();
+                if(UserInterface.GetPaymentChoice() == '1')
+                {
+                    PayWithCoin();
+                }
+                else if (UserInterface.GetPaymentChoice() == '2')
+                {
+                    PayWithCard();
+                }
             }
             else if (choice == 'b') // View Backpack
             {
                 UserInterface.DisplayInfo(customer.backpack);
             }
-            else if (choice == 'c') // Insert Card 
-            {
-                Run();
-            }
             else if (choice == 'w') // View Wallet 
             {
                 UserInterface.DisplayInfo(customer.wallet);
             }
+            else if (choice == 'd') // View Register
+            {
+                UserInterface.DisplayInfo(sodaMachine);
+            }
+
             Run();
         }
+
+        public void PayWithCoin()
+        {
+            // Insert Coin into Soda Machine ---- UserInterface.Payment(customer.wallet.coins);
+            Console.WriteLine("Paying with coin");
+            // Insert Coin into Soda Machine ---- UserInterface.Payment(customer.wallet.coins);
+            List<Coin> transferingToMachine = UserInterface.Payment(customer);
+            
+            UserInterface.SelectSoda(transferingToMachine, sodaMachine, customer);
+            Console.ReadLine();
+        }
+
+
+        public void PayWithCard()
+        {
+            Console.WriteLine("Paying with card");
+            Console.ReadLine();
+        }
+        
 
 
 

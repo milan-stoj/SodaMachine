@@ -17,5 +17,29 @@ namespace SodaMachina
             backpack = new Backpack();
         }
 
+        public bool CheckWallet(string target)
+        {
+            foreach (Coin coin in wallet.coins)
+            {
+                if (coin.Name == target)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public Coin TransferCoinOut(string target)
+        {
+            foreach (Coin coin in wallet.coins)
+            {
+                if (coin.Name == target)
+                {
+                    wallet.coins.Remove(coin);
+                    return coin;
+                }
+            }
+            return null;
+        }
     }
 }

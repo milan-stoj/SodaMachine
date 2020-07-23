@@ -10,7 +10,7 @@ namespace SodaMachina
     {
         public RadBull()
         {
-            name = "RadBull";
+            name = "Rad Bull";
             cost = 1.00;
         }
     }
