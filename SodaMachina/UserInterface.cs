@@ -319,11 +319,11 @@ namespace SodaMachina
 
             if (canExists == true)
             {
-                Console.WriteLine("\tSoda is in stock!");
+                Console.WriteLine($"\t{canChoice} is in stock!");
                 if (canCost == totalPassed)
                 {
                     MainMenu();
-                    Console.WriteLine("\tExact Funds adequate!");
+                    Console.WriteLine($"\tExact Funds adequate!\n\tTaking payment of ${totalPassed} and dispensing {canChoice}.");
                     Can customerCan = sodaMachina.TransferSoda(canChoice);
                     customer.backpack.cans.Add(customerCan);
                     sodaMachina.TransferCoinsIn(transferedFunds);
@@ -334,7 +334,7 @@ namespace SodaMachina
                     if((totalPassed - canCost) > sodaMachina.RegisterTotal() || sodaMachina.ChangePresent(totalPassed - canCost) == false)
                     {
                         MainMenu();
-                        Console.WriteLine($"\tFunds adequate!\n\tBut not enough change to give. Returning payment.");
+                        Console.WriteLine($"\tFunds adequate!\n\tBut not enough change to give in machine.\n\tReturning payment of ${totalPassed}.");
                         foreach (Coin coin in transferedFunds)
                         {
                             customer.wallet.coins.Add(coin);
@@ -357,7 +357,7 @@ namespace SodaMachina
                 else if(canCost > totalPassed)
                 {
                     MainMenu();
-                    Console.WriteLine("\tInsufficient funds\n\tReturning Payment");
+                    Console.WriteLine($"\tInsufficient funds\n\tReturning Payment of ${totalPassed}.");
                     foreach (Coin coin in transferedFunds)
                     {
                         customer.wallet.coins.Add(coin);
@@ -387,20 +387,20 @@ namespace SodaMachina
 
             if (canExists == true)
             {
-                Console.WriteLine("\tSoda is in stock!");
+                Console.WriteLine($"\t{canChoice} is in stock!");
                 if (canCost <= totalPassed)
                 {
                     MainMenu();
-                    Console.WriteLine("\tCredit Card Funds adequate!");
                     Can customerCan = sodaMachina.TransferSoda(canChoice);
                     customer.backpack.cans.Add(customerCan);
                     customer.wallet.card.RemoveFunds(canCost);
+                    Console.WriteLine($"\tCredit Card Funds adequate!\n\tAccepting funds of {canCost}.\n\t${customer.wallet.card.AvailableFunds} remaining on card.");
                 }
                 
                 else if (canCost > totalPassed)
                 {
                     MainMenu();
-                    Console.WriteLine("\tInsufficient funds on card");
+                    Console.WriteLine($"\tInsufficient funds on card\n\t{customer.wallet.card.AvailableFunds} on card.");
                 }
 
             }

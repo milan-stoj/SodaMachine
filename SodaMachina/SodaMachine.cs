@@ -57,7 +57,7 @@ namespace SodaMachina
             {
                 newList.Add(coin);
             }
-            double changeRemaining = changeDue * 100;
+            int changeRemaining = Convert.ToInt32(changeDue * 100);
             while (changeRemaining != 0)
             {
                 if (changeRemaining % 25 == 0 && CoinPresent("Quarter"))
@@ -98,7 +98,7 @@ namespace SodaMachina
 
         public List<Coin> ReturnChange(double changeDue)
         {
-            double changeRemaining = changeDue * 100;
+            int changeRemaining = Convert.ToInt32(changeDue * 100);
             List<Coin> changeReturned = new List<Coin>();
 
             while(changeRemaining != 0)

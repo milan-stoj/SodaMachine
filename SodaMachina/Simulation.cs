@@ -64,19 +64,13 @@ namespace SodaMachina
 
         public void PayWithCoin()
         {
-            // Insert Coin into Soda Machine ---- UserInterface.Payment(customer.wallet.coins);
-            Console.WriteLine("Paying with coin");
-            // Insert Coin into Soda Machine ---- UserInterface.Payment(customer.wallet.coins);
             List<Coin> transferingToMachine = UserInterface.Payment(customer);
             UserInterface.SelectSoda(transferingToMachine, sodaMachine, customer);
             Console.ReadLine();
         }
 
-
         public void PayWithCard()
         {
-            Console.WriteLine("Paying with card");
-            Console.ReadLine();
             UserInterface.SelectSoda(sodaMachine, customer); // Overload select soda method for credit card
             Console.ReadLine();
         }
