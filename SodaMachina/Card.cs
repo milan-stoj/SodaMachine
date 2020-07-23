@@ -13,7 +13,7 @@ namespace SodaMachina
 
         public Card()
         {
-            availableFunds = 0.01;
+            availableFunds = 100;
         }
 
         public void RemoveFunds(double cost)

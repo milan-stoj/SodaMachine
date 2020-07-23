@@ -66,13 +66,15 @@ namespace SodaMachina
         {
             List<Coin> transferingToMachine = UserInterface.Payment(customer);
             UserInterface.SelectSoda(transferingToMachine, sodaMachine, customer);
-            Console.ReadLine();
+            Console.WriteLine("\tPress any key to return to main menu.");
+            Console.ReadKey();
         }
 
         public void PayWithCard()
         {
             UserInterface.SelectSoda(sodaMachine, customer); // Overload select soda method for credit card
-            Console.ReadLine();
+            Console.WriteLine("\tPress any key to return to main menu.");
+            Console.ReadKey();
         }
         
 

@@ -343,7 +343,7 @@ namespace SodaMachina
                     else if(totalPassed - canCost < sodaMachina.RegisterTotal())
                     {
                         MainMenu();
-                        Console.WriteLine($"\tFunds adequate!\n\tDispensing soda and {totalPassed - canCost} in change");
+                        Console.WriteLine($"\tFunds adequate!\n\tDispensing {canChoice} and {totalPassed - canCost} in change");
                         Can customerCan = sodaMachina.TransferSoda(canChoice);
                         customer.backpack.cans.Add(customerCan);
                         sodaMachina.TransferCoinsIn(transferedFunds);
@@ -368,7 +368,7 @@ namespace SodaMachina
             else if (canExists == false)
             {
                 MainMenu();
-                Console.WriteLine("\tInsufficient stock\n\tReturning Payment");
+                Console.WriteLine($"\tInsufficient {canChoice} inventory.\n\tReturning Payment of ${totalPassed}");
                 foreach (Coin coin in transferedFunds)
                 {
                     customer.wallet.coins.Add(coin);
@@ -394,20 +394,20 @@ namespace SodaMachina
                     Can customerCan = sodaMachina.TransferSoda(canChoice);
                     customer.backpack.cans.Add(customerCan);
                     customer.wallet.card.RemoveFunds(canCost);
-                    Console.WriteLine($"\tCredit Card Funds adequate!\n\tAccepting funds of {canCost}.\n\t${customer.wallet.card.AvailableFunds} remaining on card.");
+                    Console.WriteLine($"\tCredit Card Funds adequate!\n\tAccepting funds of ${canCost}.\n\t${customer.wallet.card.AvailableFunds} remaining on card.");
                 }
                 
                 else if (canCost > totalPassed)
                 {
                     MainMenu();
-                    Console.WriteLine($"\tInsufficient funds on card\n\t{customer.wallet.card.AvailableFunds} on card.");
+                    Console.WriteLine($"\tInsufficient funds on card\n\t${customer.wallet.card.AvailableFunds} on card.");
                 }
 
             }
             else if (canExists == false)
             {
                 MainMenu();
-                Console.WriteLine("\tInsufficient stock\n\t");
+                Console.WriteLine($"\tInsufficient {canChoice} inventory.\n\tNo charge on card. ${customer.wallet.card.AvailableFunds} on card. ");
             }
         }
 
