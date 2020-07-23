@@ -15,7 +15,7 @@ namespace SodaMachina
         {
             inventory = new List<Can>();
 
-            for (int i = 0; i < 10; i++) { inventory.Add(new RootBeer()); }
+            for (int i = 0; i < 10; i++) { inventory.Add(new Cola()); }
             for (int i = 0; i < 10; i++) { inventory.Add(new OrangeSoda()); }
             for (int i = 0; i < 10; i++) { inventory.Add(new RadBull()); }
             for (int i = 0; i < 10; i++) { inventory.Add(new RootBeer()); }

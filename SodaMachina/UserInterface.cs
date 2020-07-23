@@ -10,6 +10,16 @@ namespace SodaMachina
     static class UserInterface
     {
         
+        public static void Choices()
+        {
+            Console.WriteLine(@"
+    Input 'i'   : Get info about products.
+    Input 'm'   : Insert cash/coin into the machine.
+    Input 'c'   : Insert credit card into the machine.
+    Input 'b'   : View contents of backpack (coming soon).
+    Input 'w'   : View contents of wallet (combing soon).
+");
+        }
 
         public static void MainMenu()
         {
@@ -20,12 +30,6 @@ namespace SodaMachina
     ║  Select an item for more info, or insert  ║
     ║            cash or credit card.           ║
     ╬═══════════════════════════════════════════╬
-
-    Input 'i'   : Get info about products.
-    Input 'm'   : Insert cash/coin into the machine.
-    Input 'c'   : Insert credit card into the machine.
-    Input 'b'   : View contents of backpack (coming soon).
-    Input 'w'   : View contents of wallet (combing soon).
 ");
         }
 
@@ -60,11 +64,23 @@ namespace SodaMachina
         }
 
         // Overload DisplayInfo method.
-        public static void DisplayInfo(List<Can> inventory) // Method for displaying can inventory on a rail.
+        public static void DisplayInfo(List<Can> inventory) // Method for displaying can inventory.
         {
             if (inventory.Count > 0)
             {
-                Console.WriteLine($"\tSoda Name: {inventory[0].Name}\n\tSoda Cost: {inventory[0].Cost}");
+                List<Can> distinctCans = inventory.GroupBy(n => n.Name).Select(g => g.First()).ToList();
+                foreach (Can can in distinctCans)
+                {
+                    double subCanTotal = 0;
+                    string target = can.Name;
+                    List<Can> sublist = inventory.FindAll(x => x.Name.Equals(target)); // Using predicate to extract list of items matching "Name" of distinct wallet coins.
+                    int count = sublist.Count();
+                    foreach (Can subcan in sublist) // Iterating through each coin type in wallet to get total value of each type.
+                    {
+                        subCanTotal += subcan.Cost;
+                    }
+                    Console.WriteLine($"\t{count} × {target}: ${can.Cost}/can");
+                }
             }
             else
             {
@@ -100,7 +116,7 @@ namespace SodaMachina
             Console.ReadKey();
         }
 
-        public static void DisplayInfo(Wallet wallet) // method for displaying contents of backpack.
+        public static void DisplayInfo(Wallet wallet) // method for displaying contents of wallet.
         {
             if (wallet.coins.Count > 0)
             {
@@ -126,7 +142,7 @@ namespace SodaMachina
             Console.ReadKey();
         }
 
-        public static void PurchaseSoda(Card card) // method for displaying contents of backpack.
+        public static void PurchaseSoda(Card card)
         {
             
         }

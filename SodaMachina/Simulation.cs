@@ -20,6 +20,7 @@ namespace SodaMachina
         public void Run()
         {
             UserInterface.MainMenu();
+            UserInterface.Choices();
             GetAction(UserInterface.GetChoice());
         }
 
