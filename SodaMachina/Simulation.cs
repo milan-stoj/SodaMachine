@@ -36,11 +36,12 @@ namespace SodaMachina
             {
                 UserInterface.MainMenu();
                 UserInterface.PaymentChoices();
-                if(UserInterface.GetPaymentChoice() == '1')
+                choice = UserInterface.GetPaymentChoice();
+                if(choice == '1')
                 {
                     PayWithCoin();
                 }
-                else if (UserInterface.GetPaymentChoice() == '2')
+                else if (choice == '2')
                 {
                     PayWithCard();
                 }
@@ -67,7 +68,6 @@ namespace SodaMachina
             Console.WriteLine("Paying with coin");
             // Insert Coin into Soda Machine ---- UserInterface.Payment(customer.wallet.coins);
             List<Coin> transferingToMachine = UserInterface.Payment(customer);
-            
             UserInterface.SelectSoda(transferingToMachine, sodaMachine, customer);
             Console.ReadLine();
         }
@@ -76,6 +76,8 @@ namespace SodaMachina
         public void PayWithCard()
         {
             Console.WriteLine("Paying with card");
+            Console.ReadLine();
+            UserInterface.SelectSoda(sodaMachine, customer); // Overload select soda method for credit card
             Console.ReadLine();
         }
         

@@ -200,8 +200,6 @@ namespace SodaMachina
 
         }
 
-
-
         public static List<Coin> Payment(Customer customer)
         {
             List<Coin> toMachine = new List<Coin>();
@@ -328,10 +326,12 @@ namespace SodaMachina
                     Console.WriteLine("\tExact Funds adequate!");
                     Can customerCan = sodaMachina.TransferSoda(canChoice);
                     customer.backpack.cans.Add(customerCan);
+                    sodaMachina.TransferCoinsIn(transferedFunds);
+                    
                 }
                 else if(canCost < totalPassed)
                 {
-                    if(totalPassed - canCost > sodaMachina.RegisterTotal())
+                    if((totalPassed - canCost) > sodaMachina.RegisterTotal() || sodaMachina.ChangePresent(totalPassed - canCost) == false)
                     {
                         MainMenu();
                         Console.WriteLine($"\tFunds adequate!\n\tBut not enough change to give. Returning payment.");
@@ -346,7 +346,8 @@ namespace SodaMachina
                         Console.WriteLine($"\tFunds adequate!\n\tDispensing soda and {totalPassed - canCost} in change");
                         Can customerCan = sodaMachina.TransferSoda(canChoice);
                         customer.backpack.cans.Add(customerCan);
-                        foreach(Coin coin in sodaMachina.ReturnChange(totalPassed - canCost))
+                        sodaMachina.TransferCoinsIn(transferedFunds);
+                        foreach (Coin coin in sodaMachina.ReturnChange(totalPassed - canCost))
                         {
                             customer.wallet.coins.Add(coin);
                         }
@@ -372,6 +373,41 @@ namespace SodaMachina
                 {
                     customer.wallet.coins.Add(coin);
                 }
+            }
+        }
+
+        public static void SelectSoda(SodaMachine sodaMachina, Customer customer)
+        {
+            MainMenu();
+            CanChoices();
+            string canChoice = GetCanChoice();
+            double totalPassed = customer.wallet.card.AvailableFunds;
+            double canCost = sodaMachina.ReturnSodaPrice(canChoice);
+            bool canExists = sodaMachina.CheckInventory(canChoice);
+
+            if (canExists == true)
+            {
+                Console.WriteLine("\tSoda is in stock!");
+                if (canCost <= totalPassed)
+                {
+                    MainMenu();
+                    Console.WriteLine("\tCredit Card Funds adequate!");
+                    Can customerCan = sodaMachina.TransferSoda(canChoice);
+                    customer.backpack.cans.Add(customerCan);
+                    customer.wallet.card.RemoveFunds(canCost);
+                }
+                
+                else if (canCost > totalPassed)
+                {
+                    MainMenu();
+                    Console.WriteLine("\tInsufficient funds on card");
+                }
+
+            }
+            else if (canExists == false)
+            {
+                MainMenu();
+                Console.WriteLine("\tInsufficient stock\n\t");
             }
         }
 

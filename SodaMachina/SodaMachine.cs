@@ -22,10 +22,10 @@ namespace SodaMachina
             for (int i = 0; i < 1; i++) { inventory.Add(new RootBeer()); }
 
             register = new List<Coin>();
-            for (int i = 0; i < 20; i++) { register.Add(new Quarter()); }
-            for (int i = 0; i < 10; i++) { register.Add(new Nickel()); }
-            for (int i = 0; i < 20; i++) { register.Add(new Penny()); }
-            for (int i = 0; i < 50; i++) { register.Add(new Quarter()); }
+            for (int i = 0; i < 1; i++) { register.Add(new Quarter()); }
+            for (int i = 0; i < 1; i++) { register.Add(new Dime()); }
+            for (int i = 0; i < 1; i++) { register.Add(new Nickel()); }
+            for (int i = 0; i < 1; i++) { register.Add(new Penny()); }
         }
 
         public double RegisterTotal()
@@ -48,6 +48,52 @@ namespace SodaMachina
                 }
             }
             return false;
+        }
+
+        public bool ChangePresent(double changeDue)
+        {
+            List<Coin> newList = new List<Coin>(); // Making a duplicte list of the current state register.
+            foreach(Coin coin in register)
+            {
+                newList.Add(coin);
+            }
+            double changeRemaining = changeDue * 100;
+            while (changeRemaining != 0)
+            {
+                if (changeRemaining % 25 == 0 && CoinPresent("Quarter"))
+                {
+                    if (CoinExists("Quarter", newList) == false)
+                    {
+                        return false;
+                    }
+                    changeRemaining -= 25;
+                }
+                else if (changeRemaining % 10 == 0 && CoinPresent("Dime"))
+                {
+                    if (CoinExists("Dime", newList) == false)
+                    {
+                        return false;
+                    }
+                    changeRemaining -= 10;
+                }
+                else if (changeRemaining % 5 == 0 && CoinPresent("Nickel"))
+                {
+                    if (CoinExists("Nickel", newList) == false)
+                    {
+                        return false;
+                    }
+                    changeRemaining -= 5;
+                }
+                else if (changeRemaining % 1 == 0 && CoinPresent("Penny"))
+                {
+                    if (CoinExists("Penny", newList) == false)
+                    {
+                        return false;
+                    }
+                    changeRemaining -= 1;
+                }
+            }
+            return true;
         }
 
         public List<Coin> ReturnChange(double changeDue)
@@ -106,6 +152,19 @@ namespace SodaMachina
             return null;
         }
 
+        public bool CoinExists(string target, List<Coin> coins) // Checks temp list if coin is present - if it is, it is removed.
+        {
+            foreach (Coin coin in coins)
+            {
+                if (coin.Name == target)
+                {
+                    coins.Remove(coin);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public double TotalPassed(List<Coin> coins)
         {
             double total = 0;
@@ -139,6 +198,14 @@ namespace SodaMachina
                 }
             }
             return false;
+        }
+
+        public void TransferCoinsIn(List<Coin> coins)
+        {
+            foreach (Coin coin in coins)
+            {
+                register.Add(coin);
+            }
         }
     }
 
