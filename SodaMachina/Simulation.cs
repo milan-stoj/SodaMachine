@@ -24,7 +24,6 @@ namespace SodaMachina
             GetAction(UserInterface.GetChoice());
         }
 
-
         public void GetAction(char choice)
         {
             UserInterface.MainMenu();
@@ -50,7 +49,7 @@ namespace SodaMachina
             {
                 UserInterface.DisplayInfo(customer.backpack);
             }
-            else if (choice == 'w') // View Wallet 
+            else if (choice == 'w') // View Wallet
             {
                 UserInterface.DisplayInfo(customer.wallet);
             }
@@ -76,9 +75,5 @@ namespace SodaMachina
             Console.WriteLine("\tPress any key to return to main menu.");
             Console.ReadKey();
         }
-        
-
-
-
     }
 }
